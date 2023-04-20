@@ -7,3 +7,7 @@ Prerequisites: Install the required modules for running the SCEC scripts.
 ```
 pip install -r requirements.txt```
 
+## Fuzzy Search
+
+## Website Parsing (Broken Web Addresses)
+
