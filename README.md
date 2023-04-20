@@ -37,7 +37,7 @@ To verify that Python is installed correctly and can be run from the command lin
 
 ```python fuzzysearch.py```
 
-The fuzzySearch
+The fuzzySearch script finds records that are similar textually (i.e. Robb Elementary vs. Robb Elementary School), while considering parameters such as distance between the address of the records. The output is a table with all records that are potentially related. 
 
 ```python fuzzysearch.py INPUT_CSV_FILE OUTPUT_CSV_FILE FIELD(0-BUSINESSNAME,8-DISTRICT) GLOBAL_REGION(TRUE/FALSE)```
 
