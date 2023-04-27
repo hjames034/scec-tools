@@ -33,7 +33,7 @@ print('Generating Distance Matrix')
 counter = 1
 print(len(df.index))
 potential_duplicate = []
-dict_of_pk = {} #primary key with maximum tracker key!
+dict_of_pk = {} #primary key with maximum tracker key! (most recent)
 #print((df.loc[zipJ]['LAT'],df.loc[zipJ]['LONG']))
 def fileParser():
     fileO = open(FILE_TO_PARSE,'r',encoding='utf-8')
@@ -57,9 +57,9 @@ def fileParser():
                     business_stripped = line[0].lower()
                     for i in category_dict[h]:
                         business_stripped = business_stripped.replace(i,'')
-                    district_stripped = line[9].lower().replace('district','').replace('school','').replace('unified','')
+                    district_stripped = line[9].lower().replace('district','').replace('school','').replace('unified','') # remove commonly used words
                     for item in category_dict[h]:
-                        district_stripped = district_stripped.replace(item,'')
+                        district_stripped = district_stripped.replace(item,'') # remove commonly used words for district
                     #abbreviation =''.join([w[0] for w in line[9].lower().split()])
                     file_reader.append([business_stripped,line[2],line[3],line[4],line[5], line[6].strip('\n""'),line[7],line[8],district_stripped,len(line[9]),line[9]])
             except:
@@ -70,17 +70,19 @@ def fileParser():
         counter=1
         #tuplize
         for index,val in df.iterrows():
-            dict_tuple[index]=(df.loc[index]['LAT'],df.loc[index]['LNG'])
+            dict_tuple[index]=(df.loc[index]['LAT'],df.loc[index]['LNG']) # get lat long of zipcode
         #print(list(dict_tuple.values())[0:7])
         print('on the fly tuplefication done')
-        fileReader(file_reader,FIELD_OF_INTEREST)
-def fileReader(file_reader,field_of_interest=0):
+        fileReader(file_reader,FIELD_OF_INTEREST) 
+#FileReader - given a list of businesseses, and a field to look at, return records that are closely related.
+def fileReader(file_reader,field_of_interest=0): #gets records that are closely related
     parsed=[]
     counter = 1
     for i in file_reader:
         print(i[0])
         counter+=1
         counterJ = 0
+        #get distances between two businesses
         try:
             zipI = int(i[2])
         except:
@@ -116,7 +118,7 @@ def fileReader(file_reader,field_of_interest=0):
                     #print('partial match found pre ratio')
             #print(i,j)]
                     if i[8] == j[8]:
-                        continue
+                        continue # if districts are exactly the same, then you 
                     if ((fuzz.partial_ratio(i[field_of_interest],j[field_of_interest]) > 90 or fuzz.token_sort_ratio(i[field_of_interest],j[field_of_interest]) > 80)and i!=j):
                         #print(hs.haversine(tupleI,tupleJ))
                         distance = hs.haversine(tupleI,tupleJ)
