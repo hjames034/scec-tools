@@ -74,4 +74,4 @@ Example:
 
 5. Go to the "failed_site_import" and import the websites.
 6. Follow the instructions on the main document.
-7. When done following the instructions on the main doc, delete those websties from the failed_site_import database(you can delete all websites!)
+7. When done following the instructions on the main doc, delete those websties from the failed_site_import table(you can delete all websites!)
