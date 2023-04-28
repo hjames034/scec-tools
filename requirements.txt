@@ -1,4 +1,3 @@
-concurrent.futures
 requests
 fuzzywuzzy
 haversine
