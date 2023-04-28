@@ -1,4 +1,3 @@
-csv
 concurrent.futures
 requests
 fuzzywuzzy
