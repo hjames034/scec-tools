@@ -119,7 +119,8 @@ def fileReader(file_reader,field_of_interest=0): #gets records that are closely 
             #print(i,j)]
                     if i[8] == j[8]:
                         continue # if districts are exactly the same, then you 
-                    if ((fuzz.partial_ratio(i[field_of_interest],j[field_of_interest]) > 90 or fuzz.token_sort_ratio(i[field_of_interest],j[field_of_interest]) > 80)and i!=j):
+                    if (((fuzz.partial_ratio(i[field_of_interest],j[field_of_interest]) > 90 or fuzz.token_sort_ratio(i[field_of_interest],j[field_of_interest]) > 80) or (fuzz.token_sort_ratio(i[field_of_interest],j[0]) and j[field_of_interest] != '' and field_of_interest == 8))and i!=j):
+                        #get two different ratios of similarity, or if the businessname is similar to district and district is blank, then compare those too!
                         #print(hs.haversine(tupleI,tupleJ))
                         distance = hs.haversine(tupleI,tupleJ)
                         if (distance < 20 or (tupleJ == (0,0) or tupleI== (0,0)) or GLOBAL_FLAG == True): # and i[-1] == j[-1]:
